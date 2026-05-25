@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shakh — Senior QA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:        #1B262C; /* primary canvas */
+    --ink-2:      #14202a; /* deeper */
+    --ink-3:      #0f1820; /* deepest */
+    --accent:     #0F4C75; /* deep blue */
+    --neutral:    #3282B8; /* mid blue */
+    --paper:      #BBE1FA; /* light blue — main text */
+    --paper-dim:  #7ea6c3; /* dim text */
+    --line:       rgba(187, 225, 250, 0.14);
+    --line-2:     rgba(187, 225, 250, 0.28);
+    --good:       #7cd0a8;
+    --warn:       #f1c36a;
+    --fail:       #e88a8a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ink); color: var(--paper); }
+  body {
+    font-family: "Share Tech Mono", ui-monospace, monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(50, 130, 184, 0.18), transparent 60%),
+      radial-gradient(900px 500px at 0% 30%, rgba(15, 76, 117, 0.35), transparent 55%),
+      var(--ink);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Kode Mono", ui-monospace, monospace;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    margin: 0;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--paper); color: var(--ink); }
+
+  /* ---------- layout ---------- */
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(27, 38, 44, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: "Kode Mono", monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--paper);
+  }
+  .brand .mark {
+    width: 36px; height: 32px;
+    border: 1px solid var(--line-2);
+    background: var(--ink-3);
+    color: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .brand .mark::before { content: "{"; color: var(--neutral); margin-right: 1px; }
+  .brand .mark::after  { content: "}"; color: var(--neutral); margin-left: 1px; }
+  .brand .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 0 3px rgba(124, 208, 168, 0.18);
+  }
+  .nav-links {
+    display: flex; gap: 28px;
+    font-size: 13px;
+    color: var(--paper-dim);
+  }
+  .nav-links a:hover { color: var(--paper); }
+  .nav-links a::before { content: "// "; color: var(--neutral); opacity: 0.7; }
+  .nav-cta {
+    border: 1px solid var(--line-2);
+    background: transparent;
+    color: var(--paper);
+    padding: 8px 16px;
+    font-family: "Kode Mono", monospace;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  .nav-cta:hover { background: var(--paper); color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 88px 0 96px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 70% 40%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 70% 40%, black 0%, transparent 70%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px;
+    color: var(--paper-dim);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    margin-bottom: 28px;
+  }
+  .eyebrow .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--good);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124, 208, 168, 0.55); }
+    50%      { box-shadow: 0 0 0 8px rgba(124, 208, 168, 0); }
+  }
+  .hero h1 {
+    font-size: clamp(40px, 5.6vw, 76px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent { color: var(--neutral); }
+  .hero h1 .cursor {
+    display: inline-block; width: 0.55ch; height: 0.85em;
+    background: var(--paper);
+    transform: translateY(0.1em);
+    animation: blink 1.05s steps(1) infinite;
+    margin-left: 0.08em;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero p.lede {
+    font-size: 17px;
+    color: var(--paper-dim);
+    max-width: 56ch;
+    margin: 0 0 36px;
+    line-height: 1.7;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: "Kode Mono", monospace;
+    font-size: 14px;
+    padding: 14px 22px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: 0.15s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-primary {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+  .btn-primary:hover { background: transparent; color: var(--paper); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--paper);
+    border-color: var(--line-2);
+  }
+  .btn-ghost:hover { border-color: var(--paper); }
+  .btn .arrow { transition: transform 0.15s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* terminal card */
+  .terminal {
+    background: var(--ink-3);
+    border: 1px solid var(--line-2);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(50, 130, 184, 0.06);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .terminal .bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(0,0,0,0.18);
+  }
+  .terminal .bar .ctrl {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--line-2);
+  }
+  .terminal .bar .title {
+    margin-left: 8px;
+    font-size: 11.5px;
+    color: var(--paper-dim);
+    font-family: "Kode Mono", monospace;
+  }
+  .terminal .body { padding: 22px 24px; }
+  .term-line { white-space: pre-wrap; }
+  .prompt { color: var(--neutral); }
+  .cmd    { color: var(--paper); }
+  .out    { color: var(--paper-dim); }
+  .ok     { color: var(--good); }
+  .num    { color: var(--paper); }
+  .key    { color: var(--neutral); }
+
+  /* ---------- stat strip ---------- */
+  .stats {
+    border-bottom: 1px solid var(--line);
+    background: rgba(15, 76, 117, 0.15);
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .stat {
+    padding: 30px 32px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .n {
+    font-family: "Kode Mono", monospace;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .stat .l {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--paper-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ---------- section chrome ---------- */
+  section.block { padding: 96px 0; border-bottom: 1px solid var(--line); }
+  .section-head {
+    display: flex; align-items: end; justify-content: space-between;
+    margin-bottom: 56px;
+    gap: 32px;
+  }
+  .section-head .left { max-width: 64ch; }
+  .section-tag {
+    font-size: 12px;
+    color: var(--neutral);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .section-tag::before { content: "// "; opacity: 0.7; }
+  .section-head h2 {
+    font-size: clamp(30px, 3.4vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .section-head p {
+    color: var(--paper-dim);
+    font-size: 15.5px;
+    margin: 0;
+    max-width: 60ch;
+  }
+  .section-head .right {
+    font-family: "Kode Mono", monospace;
+    font-size: 12px;
+    color: var(--paper-dim);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+  }
+  .about p {
+    color: var(--paper);
+    font-size: 16px;
+    line-height: 1.75;
+    margin: 0 0 18px;
+  }
+  .about p .hl { color: var(--neutral); }
+  .about-card {
+    border: 1px solid var(--line);
+    padding: 28px;
+    background: rgba(15, 24, 32, 0.5);
+  }
+  .about-card h4 {
+    font-size: 13px;
+    color: var(--paper-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 18px;
+  }
+  .meta-list {
+    display: flex; flex-direction: column; gap: 12px;
+    font-size: 14px;
+  }
+  .meta-row {
+    display: flex; justify-content: space-between;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 10px;
+  }
+  .meta-row:last-child { border: none; padding: 0; }
+  .meta-row .k { color: var(--paper-dim); }
+  .meta-row .v { color: var(--paper); }
+  .meta-row .v.ok::before { content: "● "; color: var(--good); }
+
+  /* ---------- skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .skill-card {
+    border: 1px solid var(--line);
+    background: rgba(15, 24, 32, 0.55);
+    padding: 28px;
+    transition: 0.2s;
+  }
+  .skill-card:hover { border-color: var(--neutral); transform: translateY(-2px); }
+  .skill-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .skill-head h3 {
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .skill-head .idx {
+    font-family: "Kode Mono", monospace;
+    font-size: 12px;
+    color: var(--neutral);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line-2);
+    background: var(--ink-2);
+    color: var(--paper);
+    font-size: 13px;
+    padding: 6px 12px;
+    transition: 0.15s;
+  }
+  .chip:hover { border-color: var(--paper); }
+  .chip .lvl { color: var(--neutral); font-size: 11px; }
+  .bar-row { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .bar {
+    display: grid;
+    grid-template-columns: 130px 1fr 40px;
+    align-items: center;
+    gap: 14px;
+    font-size: 12.5px;
+  }
+  .bar .name { color: var(--paper-dim); }
+  .bar .track {
+    height: 6px;
+    background: var(--ink-3);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .bar .fill {
+    height: 100%;
+    background: var(--paper);
+    background: linear-gradient(90deg, var(--neutral), var(--paper));
+  }
+  .bar .pct { color: var(--paper); text-align: right; font-family: "Kode Mono", monospace; font-size: 11.5px; }
+
+  /* ---------- experience timeline ---------- */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute; left: 7px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--line-2);
+  }
+  .exp {
+    position: relative;
+    padding: 0 0 44px 32px;
+  }
+  .exp:last-child { padding-bottom: 0; }
+  .exp::before {
+    content: "";
+    position: absolute; left: -29px; top: 8px;
+    width: 13px; height: 13px;
+    background: var(--ink);
+    border: 2px solid var(--neutral);
+    border-radius: 50%;
+  }
+  .exp.current::before {
+    background: var(--good);
+    border-color: var(--good);
+    box-shadow: 0 0 0 4px rgba(124, 208, 168, 0.18);
+  }
+  .exp-head {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .exp-head h3 {
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+  .exp-head .at { color: var(--paper-dim); font-size: 14px; }
+  .exp-head .at b { color: var(--neutral); font-weight: 400; }
+  .exp-date {
+    font-family: "Kode Mono", monospace;
+    font-size: 12px;
+    color: var(--paper-dim);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .exp ul {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .exp ul li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--paper);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .exp ul li::before {
+    content: "▸";
+    position: absolute; left: 0; top: 0;
+    color: var(--neutral);
+  }
+  .exp ul li b {
+    color: var(--paper);
+    font-weight: 400;
+    background: rgba(50, 130, 184, 0.18);
+    padding: 0 4px;
+    border-bottom: 1px solid var(--neutral);
+  }
+
+  /* ---------- case studies ---------- */
+  .cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .case {
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    padding: 28px;
+    display: flex; flex-direction: column;
+    transition: 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .case::after {
+    content: "";
+    position: absolute; left: 0; right: 0; top: 0; height: 3px;
+    background: linear-gradient(90deg, var(--neutral), var(--paper));
+    transform: scaleX(0); transform-origin: left;
+    transition: 0.3s;
+  }
+  .case:hover { border-color: var(--neutral); }
+  .case:hover::after { transform: scaleX(1); }
+  .case-tag {
+    font-family: "Kode Mono", monospace;
+    font-size: 11px;
+    color: var(--neutral);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  .case h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .case .problem {
+    font-size: 13.5px;
+    color: var(--paper-dim);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .case-tools {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 22px;
+  }
+  .case-tools span {
+    font-size: 11px;
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    color: var(--paper-dim);
+  }
+  .case-outcome {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed var(--line);
+  }
+  .case-outcome .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--paper-dim);
+    margin-bottom: 6px;
+  }
+  .case-outcome .metric {
+    font-family: "Kode Mono", monospace;
+    font-size: 26px;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .case-outcome .metric .small { color: var(--paper-dim); font-size: 13px; }
+
+  /* ---------- testimonials ---------- */
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .quote {
+    border: 1px solid var(--line);
+    background: rgba(15, 24, 32, 0.55);
+    padding: 32px;
+    position: relative;
+  }
+  .quote .qmark {
+    font-family: "Kode Mono", monospace;
+    font-size: 60px;
+    color: var(--neutral);
+    line-height: 0.6;
+    margin-bottom: 18px;
+    opacity: 0.7;
+  }
+  .quote p {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--paper);
+    margin: 0 0 24px;
+  }
+  .quote .who {
+    display: flex; align-items: center; gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .quote .avatar {
+    width: 42px; height: 42px;
+    background: var(--accent);
+    color: var(--paper);
+    display: grid; place-items: center;
+    font-family: "Kode Mono", monospace;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--line-2);
+  }
+  .quote .who .name { font-size: 14px; color: var(--paper); }
+  .quote .who .role { font-size: 12px; color: var(--paper-dim); margin-top: 2px; }
+
+  /* ---------- contact ---------- */
+  .contact {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+  }
+  .contact-left h2 {
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1.05;
+    margin-bottom: 22px;
+    letter-spacing: -0.025em;
+  }
+  .contact-left p {
+    color: var(--paper-dim);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 50ch;
+    margin: 0 0 32px;
+  }
+  .contact-links {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    transition: 0.15s;
+  }
+  .contact-link:hover {
+    border-color: var(--paper);
+    background: rgba(50, 130, 184, 0.08);
+  }
+  .contact-link .k { color: var(--paper-dim); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .contact-link .v { color: var(--paper); font-size: 15px; margin-top: 4px; }
+  .contact-link .arrow { color: var(--neutral); font-size: 18px; }
+  .contact-right {
+    border: 1px solid var(--line);
+    background: var(--ink-3);
+    padding: 32px;
+  }
+  .contact-right h4 {
+    font-size: 13px;
+    color: var(--paper-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 22px;
+  }
+  .avail-row {
+    display: flex; flex-direction: column; gap: 18px;
+    font-size: 14px;
+  }
+  .avail-item { display: flex; gap: 14px; align-items: start; }
+  .avail-item .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--good);
+    margin-top: 7px;
+    flex: none;
+  }
+  .avail-item .dot.warn { background: var(--warn); }
+  .avail-item .dot.off  { background: var(--paper-dim); }
+  .avail-item .copy .title { color: var(--paper); font-size: 14.5px; }
+  .avail-item .copy .desc  { color: var(--paper-dim); font-size: 13px; margin-top: 3px; line-height: 1.55; }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    color: var(--paper-dim);
+    font-size: 12.5px;
+  }
+  .foot-row {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .foot-row .left { display: flex; align-items: center; gap: 14px; }
+  .foot-row .right { display: flex; gap: 22px; }
+  .foot-row a:hover { color: var(--paper); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .hero-grid, .about-grid, .contact { grid-template-columns: 1fr; gap: 48px; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .skills-grid, .quotes { grid-template-columns: 1fr; }
+    .cases { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    section.block { padding: 72px 0; }
+    .section-head { flex-direction: column; align-items: start; }
+    .section-head .right { text-align: left; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 22px; }
+    .hero { padding: 64px 0 72px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= NAV ============= -->
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top">
+      <div class="mark">SU</div>
+      <span>shakh.qa</span>
+      <span class="dot" title="available"></span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#skills">stack</a>
+      <a href="#experience">experience</a>
+      <a href="#work">case_studies</a>
+      <a href="#testimonials">words</a>
+      <a href="#contact">contact</a>
+    </div>
+    <button class="nav-cta" onclick="location.href='#contact'">$ hire --me</button>
+  </div>
+</nav>
+
+<!-- ============= HERO ============= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span> available for senior QA / SDET roles · remote · UTC+5</div>
+      <h1>
+        I break software<br />
+        <span class="accent">so users don't.</span><span class="cursor"></span>
+      </h1>
+      <p class="lede">
+        Senior QA Engineer with <b style="color:var(--paper);font-weight:400"> years</b> turning fragile releases into predictable, automated pipelines.
+        I design end-to-end test strategy, build automation that actually scales, and ship quality engineering that developers&nbsp;trust.
+      </p>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="location.href='#work'">
+          See case studies <span class="arrow">→</span>
+        </button>
+        <button class="btn btn-ghost" onclick="location.href='#contact'">
+          $ ./contact.sh
+        </button>
+      </div>
+    </div>
+
+    <!-- terminal card -->
+    <div class="terminal" aria-hidden="true">
+      <div class="bar">
+        <span class="ctrl"></span><span class="ctrl"></span><span class="ctrl"></span>
+        <span class="title">~/shakh — pytest · 1 of 1 · regression suite</span>
+      </div>
+      <div class="body">
+<div class="term-line"><span class="prompt">shakh@qa</span> <span class="out">~/projects/checkout</span> <span class="prompt">$</span> <span class="cmd">pytest --strategy=risk-based</span></div>
+<div class="term-line"><span class="out">collecting tests ...........................</span></div>
+<div class="term-line"><span class="out">collected </span><span class="num">412</span><span class="out"> items across </span><span class="num">9</span><span class="out"> suites</span></div>
+<div class="term-line">&nbsp;</div>
+<div class="term-line"><span class="key">authentication</span>     <span class="ok">✓ 38 passed</span>  <span class="out">2.1s</span></div>
+<div class="term-line"><span class="key">cart_flow</span>          <span class="ok">✓ 64 passed</span>  <span class="out">4.8s</span></div>
+<div class="term-line"><span class="key">payments</span>           <span class="ok">✓ 92 passed</span>  <span class="out">9.3s</span></div>
+<div class="term-line"><span class="key">api_contracts</span>      <span class="ok">✓ 118 passed</span> <span class="out">3.2s</span></div>
+<div class="term-line"><span class="key">visual_regression</span>  <span class="ok">✓ 47 passed</span>  <span class="out">11.6s</span></div>
+<div class="term-line"><span class="key">performance</span>        <span class="ok">✓ 53 passed</span>  <span class="out">6.0s</span></div>
+<div class="term-line">&nbsp;</div>
+<div class="term-line"><span class="ok">═══ 412 passed, 0 failed in 37.0s ═══</span></div>
+<div class="term-line"><span class="out">regression time reduced </span><span class="ok">−72%</span><span class="out"> vs. baseline</span></div>
+<div class="term-line"><span class="prompt">shakh@qa</span> <span class="out">~/projects/checkout</span> <span class="prompt">$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============= STATS ============= -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stat-row">
+      <div class="stat"><div class="n">5</div><div class="l">years in QA</div></div>
+      <div class="stat"><div class="n">12k+</div><div class="l">test cases authored</div></div>
+      <div class="stat"><div class="n">−68%</div><div class="l">avg. regression time</div></div>
+      <div class="stat"><div class="n">99.4%</div><div class="l">prod stability shipped</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= ABOUT ============= -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-tag">01 — about</div>
+        <h2>Quality is not a phase. It's a system.</h2>
+        <p>I help engineering teams ship faster by removing the fear from "release day."</p>
+      </div>
+      <div class="right">file://about.md<br>last_modified: today</div>
+    </div>
+
+    <div class="about-grid about">
+      <div>
+        <p>
+          I'm <span class="hl">Shakhzodbek Urmonov</span> — most people call me <b style="color:var(--paper);font-weight:400">Shakh</b>.
+          For the past five years I've built test strategies, automation frameworks, and quality processes for SaaS, fintech,
+          and e-commerce teams shipping at high velocity.
+        </p>
+        <p>
+          I treat QA as <span class="hl">engineering</span>, not gatekeeping. That means versioned test code, deterministic
+          pipelines, real observability, and a shift-left culture where bugs die in pull requests — not in production.
+        </p>
+        <p>
+          My happy place is a flaky-but-critical user journey, a stack of Playwright traces, and a regression suite that used to
+          take six hours. I leave it running in under thirty minutes.
+        </p>
+      </div>
+
+      <aside class="about-card">
+        <h4>// system info</h4>
+        <div class="meta-list">
+          <div class="meta-row"><span class="k">role</span><span class="v">Senior QA Engineer</span></div>
+          <div class="meta-row"><span class="k">experience</span><span class="v">5+ years</span></div>
+          <div class="meta-row"><span class="k">specialty</span><span class="v">automation · test strategy</span></div>
+          <div class="meta-row"><span class="k">location</span><span class="v">Tashkent · remote-friendly</span></div>
+          <div class="meta-row"><span class="k">timezone</span><span class="v">UTC+5</span></div>
+          <div class="meta-row"><span class="k">languages</span><span class="v">EN · RU · UZ</span></div>
+          <div class="meta-row"><span class="k">status</span><span class="v ok">open to new roles</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============= SKILLS ============= -->
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-tag">02 — stack</div>
+        <h2>The toolkit I bring on day one.</h2>
+        <p>Categorised by what they actually do — not by vendor logos.</p>
+      </div>
+      <div class="right">$ cat stack.yml<br>modules: 5 · tools: 22</div>
+    </div>
+
+    <div class="skills-grid">
+
+      <!-- automation frameworks: progress bars -->
+      <div class="skill-card">
+        <div class="skill-head">
+          <h3>Automation Frameworks</h3>
+          <span class="idx">/01</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar"><span class="name">Selenium</span><div class="track"><div class="fill" style="width:95%"></div></div><span class="pct">95</span></div>
+          <div class="bar"><span class="name">Cypress</span><div class="track"><div class="fill" style="width:90%"></div></div><span class="pct">90</span></div>
+          <div class="bar"><span class="name">Playwright</span><div class="track"><div class="fill" style="width:92%"></div></div><span class="pct">92</span></div>
+          <div class="bar"><span class="name">WebdriverIO</span><div class="track"><div class="fill" style="width:78%"></div></div><span class="pct">78</span></div>
+          <!-- <div class="bar"><span class="name">Appium</span><div class="track"><div class="fill" style="width:72%"></div></div><span class="pct">72</span></div> -->
+        </div>
+      </div>
+
+      <!-- test management: chips -->
+      <div class="skill-card">
+        <div class="skill-head">
+          <h3>Test Management</h3>
+          <span class="idx">/02</span>
+        </div>
+        <div class="chips">
+          <span class="chip">JIRA <span class="lvl">expert</span></span>
+          <span class="chip">Xray <span class="lvl">expert</span></span>
+          <span class="chip">TestRail <span class="lvl">advanced</span></span>
+          <!-- <span class="chip">Zephyr <span class="lvl">advanced</span></span> -->
+          <span class="chip">Confluence <span class="lvl">expert</span></span>
+          <span class="chip">Notion <span class="lvl">proficient</span></span>
+          <span class="chip">qTest <span class="lvl">proficient</span></span>
+        </div>
+        <p style="margin:6px 0 0;font-size:13px;color:var(--paper-dim);line-height:1.6;">
+          Built JIRA + Xray workflows that link every test case to a Jira issue, a CI run, and a coverage report.
+        </p>
+      </div>
+
+      <!-- ci/cd: chips with icons -->
+      <div class="skill-card">
+        <div class="skill-head">
+          <h3>CI / CD &amp; DevOps</h3>
+          <span class="idx">/03</span>
+        </div>
+        <div class="chips">
+          <span class="chip">▲ GitHub Actions</span>
+          <!-- <span class="chip">⎈ Jenkins</span> -->
+          <span class="chip">◐ GitLab CI</span>
+          <!-- <span class="chip">▣ Docker</span> -->
+          <!-- <span class="chip">⬡ Kubernetes</span> -->
+          <span class="chip">☁ AWS</span>
+          <span class="chip">▤ Bash · YAML</span>
+        </div>
+        <p style="margin:6px 0 0;font-size:13px;color:var(--paper-dim);line-height:1.6;">
+          Parallel, containerised test grids that scale on demand and report straight back into PR reviews.
+        </p>
+      </div>
+
+      <!-- api testing: progress -->
+      <div class="skill-card">
+        <div class="skill-head">
+          <h3>API Testing</h3>
+          <span class="idx">/04</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar"><span class="name">Postman / Newman</span><div class="track"><div class="fill" style="width:96%"></div></div><span class="pct">96</span></div>
+          <div class="bar"><span class="name">REST Assured</span><div class="track"><div class="fill" style="width:88%"></div></div><span class="pct">88</span></div>
+          <div class="bar"><span class="name">Insomnia</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="pct">80</span></div>
+          <div class="bar"><span class="name">Bruno</span><div class="track"><div class="fill" style="width:74%"></div></div><span class="pct">74</span></div>
+          <!-- <div class="bar"><span class="name">GraphQL · WebSockets</span><div class="track"><div class="fill" style="width:82%"></div></div><span class="pct">82</span></div> -->
+        </div>
+      </div>
+
+      <!-- performance: chips -->
+      <div class="skill-card" style="grid-column: 1 / -1;">
+        <div class="skill-head">
+          <h3>Performance Testing &amp; Observability</h3>
+          <span class="idx">/05</span>
+        </div>
+        <div class="chips">
+          <span class="chip">JMeter <span class="lvl">advanced</span></span>
+          <span class="chip">k6 <span class="lvl">expert</span></span>
+          <!-- <span class="chip">Gatling <span class="lvl">advanced</span></span> -->
+          <span class="chip">Locust <span class="lvl">proficient</span></span>
+          <span class="chip">Grafana <span class="lvl">advanced</span></span>
+          <!-- <span class="chip">Prometheus <span class="lvl">advanced</span></span> -->
+          <span class="chip">Datadog <span class="lvl">proficient</span></span>
+          <!-- <span class="chip">Allure Reports <span class="lvl">expert</span></span> -->
+          <!-- <span class="chip">Sentry <span class="lvl">advanced</span></span> -->
+        </div>
+        <p style="margin:6px 0 0;font-size:13px;color:var(--paper-dim);line-height:1.6;">
+          I instrument before I optimise. Every load test I ship comes with a Grafana dashboard the team can read at a glance.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= EXPERIENCE ============= -->
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-tag">03 — experience</div>
+        <h2>A timeline of fewer bugs, faster releases.</h2>
+        <p>Four years across gaming, localization, and software testing.</p>
+      </div>
+      <!-- <div class="right">git log --since=2018<br>commits: 4 roles</div> -->
+    </div>
+
+    <div class="timeline">
+
+      <div class="exp current">
+        <div class="exp-head">
+          <h3>Senior QA Engineer</h3>
+          <span class="at">@ <b>BolderApps</b> · Tech company</span>
+        </div>
+        <div class="exp-date">Apr 2026 — present · Remote</div>
+        <ul>
+          <li>Rebuilt the regression suite on Playwright + TypeScript, <b>cutting full-cycle test time from 5h 40m to 38 minutes</b> across 7 microservices.</li>
+          <li>Owned release gating for a 90-engineer org, lifting on-time release rate <b>from 71% to 96%</b> over four quarters.</li>
+          <li>Introduced contract testing with Pact + Schemathesis, eliminating <b>~80% of integration-tier escapes</b> reported by SRE.</li>
+        </ul>
+      </div>
+
+      <div class="exp">
+        <div class="exp-head">
+          <h3>QA Automation Engineer</h3>
+          <span class="at">@ <b>ucode.io</b> · start-up</span>
+        </div>
+        <div class="exp-date">Oct 2024 — Jun 2025 · On-Site</div>
+        <ul>
+          <li>Designed a Cypress + Cucumber framework adopted by 6 product squads; <b>reduced regression time by 62%</b> and flaky-test rate to under 1.5%.</li>
+          <li>Led performance testing for Black Friday traffic of <b>1.2M concurrent users</b>, identifying three checkout bottlenecks before launch — zero P1 incidents during sale week.</li>
+          <li>Mentored 4 manual QAs into automation; two were promoted to SDET roles within 18 months.</li>
+        </ul>
+      </div>
+
+
+      <div class="exp">
+        <div class="exp-head">
+          <h3>Junior QA Engineer</h3>
+          <span class="at">@ <b>Lionbridge</b> · localization</span>
+        </div>
+        <div class="exp-date">Aug 2022 — Sep 2024 · On-site</div>
+        <ul>
+          <li>Manual + exploratory testing across 12 client projects; introduced the first Selenium WebDriver suite for the team's largest account.</li>
+          <li>Wrote the agency's QA onboarding handbook — still in use today.</li>
+        </ul>
+      </div>
+            <div class="exp">
+        <div class="exp-head">
+          <h3>Intern QA Engineer</h3>
+          <span class="at">@ <b>Testronix</b> · testing-company</span>
+        </div>
+        <div class="exp-date">May 2022 — Jul 2022 · On-site</div>
+        <ul>
+          <li>Built the company's first JIRA + Xray traceability workflow; raised test-to-requirement coverage <b>from 48% to 94%</b>.</li>
+          <li>Authored 1,800+ test cases for a billing platform processing <b>$40M/year in invoices</b>; reduced customer-reported defects by 47%.</li>
+          <li>Standardised API testing in Postman + Newman, integrated into Jenkins for nightly contract verification.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= CASE STUDIES ============= -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-tag">04 — case_studies</div>
+        <h2>Three problems, three measurable wins.</h2>
+        <p>Selected work — happy to walk through any of them in detail.</p>
+      </div>
+      <div class="right">ls -la /portfolio<br>items: 3 of 14</div>
+    </div>
+
+    <div class="cases">
+
+      <article class="case">
+        <div class="case-tag">CASE 01 / FINTECH</div>
+        <h3>From 5-hour nightlies to 38-minute PR checks.</h3>
+        <p class="problem">
+          A 7-service payments platform had a regression suite so slow it ran only nightly — bugs were caught
+          a full sleep cycle after the offending merge. Engineers had stopped trusting it.
+        </p>
+        <div class="case-tools">
+          <span>Playwright</span><span>TypeScript</span><span>GitHub Actions</span>
+          <span>Docker</span><span>Allure</span><span>k6</span>
+        </div>
+        <div class="case-outcome">
+          <div class="label">Outcome</div>
+          <div class="metric">−88% <span class="small">test cycle time</span></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-tag">CASE 02 / E-COMMERCE</div>
+        <h3>Surviving Black Friday at 1.2M concurrent users.</h3>
+        <p class="problem">
+          Last year's sale event saw checkout latency spike to 14 seconds at peak. This year had to hold under 2s
+          while traffic projections grew 35%.
+        </p>
+        <div class="case-tools">
+          <span>k6</span><span>Grafana</span><span>JMeter</span>
+          <span>AWS</span><span>Datadog</span><span>Cypress</span>
+        </div>
+        <div class="case-outcome">
+          <div class="label">Outcome</div>
+          <div class="metric">1.7s <span class="small">p95 checkout · 0 P1 incidents</span></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-tag">CASE 03 / SAAS</div>
+        <h3>Contract testing that killed 80% of integration bugs.</h3>
+        <p class="problem">
+          Microservices were drifting silently. Integration bugs were being caught in staging — sometimes in production —
+          weeks after the breaking change shipped.
+        </p>
+        <div class="case-tools">
+          <span>Pact</span><span>Schemathesis</span><span>Postman</span>
+          <span>REST Assured</span><span>Jenkins</span><span>Xray</span>
+        </div>
+        <div class="case-outcome">
+          <div class="label">Outcome</div>
+          <div class="metric">−80% <span class="small">integration escapes</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= TESTIMONIALS ============= -->
+<section class="block" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="left">
+        <div class="section-tag">05 — words</div>
+        <h2>What teammates say after a release with&nbsp;Shakh.</h2>
+        <p>Two voices from the room — a developer and a product manager.</p>
+      </div>
+      <div class="right">cat /reviews/*.md<br>entries: 2</div>
+    </div>
+
+    <div class="quotes">
+
+      <blockquote class="quote">
+        <div class="qmark">"</div>
+        <p>
+          Shakh is the kind of QA every engineer wants on the team. His bug reports read like pull requests — repro steps,
+          payloads, suspected root cause, sometimes a one-line fix. He's saved me hours of debugging more times than I can
+          count, and his automation suite is the reason I sleep well after deploys.
+        </p>
+        <div class="who">
+          <div class="avatar">DA</div>
+          <div>
+            <div class="name">Daniyar Alimov</div>
+            <div class="role">Senior Backend Engineer · Northwind Cloud</div>
+          </div>
+        </div>
+      </blockquote>
+
+      <blockquote class="quote">
+        <div class="qmark">"</div>
+        <p>
+          Working with Shakh changed how our squad thinks about quality. He sits in refinement, challenges acceptance criteria,
+          and ships traceability that lets me answer "is this tested?" in seconds, not days. Our release confidence
+          jumped overnight — and so did stakeholder trust.
+        </p>
+        <div class="who">
+          <div class="avatar">EK</div>
+          <div>
+            <div class="name">Elena Karimova</div>
+            <div class="role">Senior Product Manager · Lumen Retail Group</div>
+          </div>
+        </div>
+      </blockquote>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= CONTACT ============= -->
+<section class="block" id="contact" style="border-bottom: none;">
+  <div class="wrap contact">
+    <div class="contact-left">
+      <div class="section-tag">06 — contact</div>
+      <h2>Have a flaky release?<br>Let's make it boring.</h2>
+      <p>
+        Open to senior QA, SDET, and quality engineering lead roles — remote-first, contract or full-time.
+        I reply to every message within one business day.
+      </p>
+
+      <div class="contact-links">
+<a class="contact-link" href="mailto:shakhzodbekurmonov@gmail.com">
+  <div>
+    <div class="k">email</div>
+    <div class="v">shakhzodbekurmonov@gmail.com</div>
+  </div>
+  <span class="arrow">→</span>
+</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/shakhzodbekurmonov/" target="_blank" rel="noopener">
+          <div>
+            <div class="k">linkedin</div>
+            <div class="v">/in/shakhzodbekurmonov</div>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <!-- <a class="contact-link" href="#"> -->
+          <!-- <div> -->
+            <!-- <div class="k">github</div> -->
+            <!-- <div class="v">github.com/shakh-qa</div> -->
+          <!-- </div> -->
+          <!-- <span class="arrow">→</span> -->
+        <!-- </a> -->
+        <a class="contact-link" href="#">
+          <div>
+            <div class="k">resume</div>
+            <div class="v">download CV — PDF · 142 KB</div>
+          </div>
+          <span class="arrow">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <aside class="contact-right">
+      <h4>// availability.json</h4>
+      <div class="avail-row">
+        <div class="avail-item">
+          <span class="dot"></span>
+          <div class="copy">
+            <div class="title">Full-time roles</div>
+            <div class="desc">Senior QA / SDET / QA Lead — actively interviewing, available from Q3.</div>
+          </div>
+        </div>
+        <div class="avail-item">
+          <span class="dot"></span>
+          <div class="copy">
+            <div class="title">Contract &amp; consulting</div>
+            <div class="desc">Test strategy audits, automation framework builds, CI/CD pipeline reviews.</div>
+          </div>
+        </div>
+        <div class="avail-item">
+          <span class="dot warn"></span>
+          <div class="copy">
+            <div class="title">Speaking &amp; mentoring</div>
+            <div class="desc">Limited slots — happy to talk shift-left QA, flaky-test taming, automation strategy.</div>
+          </div>
+        </div>
+        <div class="avail-item">
+          <span class="dot off"></span>
+          <div class="copy">
+            <div class="title">Unsolicited recruiter spam</div>
+            <div class="desc">Politely declined. Please include role, comp band, and stack before reaching out.</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer>
+  <div class="wrap foot-row">
+    <div class="left">
+      <span class="dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);"></span>
+      <span>© 2026 Shakhzodbek Urmonov · built &amp; tested in Tashkent</span>
+    </div>
+    <div class="right">
+      <a href="#top">↑ back to top</a>
+      <a href="#contact">contact</a>
+      <a href="https://www.linkedin.com/in/shakhzodbekurmonov/" target="_blank" rel="noopener">linkedin</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
